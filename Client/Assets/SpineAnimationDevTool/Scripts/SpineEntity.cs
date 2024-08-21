@@ -23,9 +23,11 @@ public class SpineEntity : MonoBehaviour
     private void Awake()
     {
         m_skelAnim ??= GetComponentInChildren<SkeletonAnimation>();
+        if (m_skelAnim == null)
+            SetSkelAnimation();
 
         m_anim = new AnimComponent(m_skelAnim);
-        m_fsm = new FsmComponent(this);        
+        m_fsm = new FsmComponent(this);
     }
 
     private void Update()
@@ -46,6 +48,11 @@ public class SpineEntity : MonoBehaviour
         if (Application.isPlaying)
             return;
 
+        SetSkelAnimation();
+    }
+
+    private void SetSkelAnimation()
+    {
         if (this.transform.childCount > 0)
             DestroyImmediate(this.transform.GetChild(0).gameObject);
 
