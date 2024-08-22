@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//업데이트에서 마우스 위치를 받아서 이펙트 처리
-
 public class TouchFxEntity : MonoBehaviour
 {
     #region[Field]
@@ -14,6 +12,8 @@ public class TouchFxEntity : MonoBehaviour
     private SerializedDictionary<EFxState, ParticleSystem[]> m_fxDict = new();
     private EFxState m_currState;
     private EFxState m_prevState;
+
+    public EFxState CurrState => m_currState;
     #endregion
 
     #region[Cycle]
@@ -72,8 +72,7 @@ public class TouchFxEntity : MonoBehaviour
         }
     }
 
-    [Button]
-    public void Reload()
+    private void Reload()
     {
         DestroyImmediate(m_objParent);
         m_objParent = new GameObject("Parent");
